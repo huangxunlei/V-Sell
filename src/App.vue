@@ -16,9 +16,22 @@
   </div>
 </template>
 
-<script >
+<script type="text/ecmascript-6">
   import vHeader from '@/components/header/Header'
   export default {
+    data () {
+      return {
+        seller: {}
+      }
+    },
+    created () {
+      this.$http.get('/api/seller').then((response) => {
+        response = response.json()
+        if (response.errno === 0) {
+
+        }
+      })
+    },
     components: {vHeader}
   }
 </script>
