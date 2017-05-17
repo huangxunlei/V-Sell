@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <vHeader></vHeader>
+    <vHeader :seller="seller"></vHeader>
     <div class="tab">
       <div class="tab_item">
         <router-link to="/goods">商品</router-link>
@@ -18,6 +18,7 @@
 
 <script type="text/ecmascript-6">
   import vHeader from '@/components/header/Header'
+  const ERR_OK = 0
   export default {
     data () {
       return {
@@ -26,9 +27,10 @@
     },
     created () {
       this.$http.get('/api/seller').then((response) => {
-        response = response.json()
-        if (response.errno === 0) {
-
+        response = response.body
+        if (response.errno === ERR_OK) {
+          this.seller = response.data
+          console.log(this.seller)
         }
       })
     },
