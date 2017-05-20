@@ -183,7 +183,6 @@
           line-height 24px
           margin-left 2px
           font-size 10px
-
     .bulletin_wrapper
       position relative
       height 28px
@@ -233,7 +232,6 @@
       background-color rgba(7, 17, 27, 0.8)
       &.fade-transition
         opacity 1
-
       &.fade-enter, &.fade-leave
         opacity 0
         background-color rgba(7, 17, 27, 0)
