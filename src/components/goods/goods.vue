@@ -29,17 +29,24 @@
                   <span>￥{{food.price}}</span>
                   <span class="old_price" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
                 </div>
+                <div class="cartcontrol-wrapper">
+                  <cartcontrol :food="food"></cartcontrol>
+                </div>
               </div>
             </li>
           </ul>
         </li>
       </ul>
     </div>
+    <shopcart :select-foods="selectFoods" :delivery-price="seller.deliveryPrice"
+              :min-price="seller.minPrice"></shopcart>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll'
+  import shopcart from '../../components/shopcart/shopcart.vue'
+  import cartcontrol from '../../components/cartcontrol/cartcontrol.vue'
   const ERR_OK = 0
   export default {
     props: {
@@ -75,6 +82,17 @@
           }
         }
         return 0
+      },
+      selectFoods () {
+        let foods = []
+        this.goods.forEach((good) => {
+          good.foods.forEach((food) => {
+            if (food.count) {
+              foods.push(food)
+            }
+          })
+        })
+        return foods
       }
     },
     methods: {
@@ -91,7 +109,8 @@
           click: true
         })
         this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {
-          probeType: 3
+          probeType: 3,
+          click: true
         })
         this.foodsScroll.on('scroll', (pos) => {
           this.scrollY = Math.abs(Math.round(pos.y))
@@ -107,6 +126,10 @@
           this.listHeight.push(height)
         }
       }
+    },
+    components: {
+      shopcart,
+      cartcontrol
     }
   }
 </script>
@@ -216,6 +239,8 @@
               color rgb(147, 153, 159)
               text-decoration line-through
               font-size 10px
-
-
+          .cartcontrol-wrapper
+            position absolute
+            right 0
+            bottom 12px
 </style>
